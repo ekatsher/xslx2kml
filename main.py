@@ -1,30 +1,35 @@
 # coding=utf-8
 # This is a sample Python script.
-
+# test comment
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 from StdSuites import null
 
-import requests
+#import requests
 
 import openpyxl
 from openpyxl import load_workbook
-import xlsxwriter
-import string
-import lxml
-import pykml as KML
+#import xlsxwriter
+#import string
+#import lxml
+#import pykml as KML
 from lxml import etree
-from pykml.parser import Schema
+#from pykml.parser import Schema
 from pykml.factory import KML_ElementMaker as KML
-from pykml.factory import GX_ElementMaker as GX
-import codecs
-import sympy
-from sympy import Polygon
-import re
+#from pykml.factory import GX_ElementMaker as GX
+#import codecs
+#import sympy
+#from sympy import Polygon
+#import re
+import configparser
 
 # в исходном файле в колонке 8 (считая с 0) - координаты точек, в колонке 9 - координаты полигонов
 
-book = load_workbook("/Users/ekateshcherbakova/Documents/GermanyNoADM2.xlsx")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/Karagandinskaya oblast (1).xlsx")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/Ok/Karagandinskaya oblast  Ok.xlsx")
+config = configparser.ConfigParser()  # создаём объекта парсера
+config.read("settings.ini")  # читаем конфиг
+inputFilePath = config["settings"]["inputFilePath"]
+#book = load_workbook("/Users/ekateshcherbakova/Documents/GermanyNoADM2.xlsx")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/Karagandinskaya oblast (1).xlsx")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/Ok/Karagandinskaya oblast  Ok.xlsx")
+book = load_workbook(inputFilePath)
 # book = openpyxl.open("/Users/ekateshcherbakova/Downloads/polygon.xlsx", read_only=True)
 
 sheet = book.active
@@ -32,7 +37,7 @@ sheet = book.active
 # create a KML file skeleton
 doc = KML.kml(
     KML.Document(
-        KML.Name("test"),
+        #KML.Name("test"),
         KML.Style(
             KML.id("strokeColor:b51eff66_strokeWidth:8"),
             (KML.LineStyle(
@@ -42,7 +47,8 @@ doc = KML.kml(
     )
 )
 
-for row in range(2, sheet.max_row + 1):  # со второй строки, так как в первой заголовки
+startRow = int(config["settings"]["firstRowWithData"])
+for row in range(startRow, sheet.max_row + 1):  # со второй строки, так как в первой заголовки
     # print(str(sheet[row][6].value))
     # name = str(sheet[row][6].value).decode('unicode')
     # преобразуем координаты полигонов
@@ -107,7 +113,9 @@ for row in range(2, sheet.max_row + 1):  # со второй строки, та�
 #    print etree.tostring(pm1, pretty_print=True)
 #    print etree.tostring(pm2, pretty_print=True)
 print etree.tostring(doc, pretty_print=True)
-my_file = open("/Users/ekateshcherbakova/Documents/GermanyNoADM2.kml", "w+")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/KML old/Karagandinskaya oblast old.kml", "w+")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/KML/Karagandinskaya oblast Ok.kml", "w+")
+outputFilePath = config["settings"]["outputFilePath"]
+#my_file = open("/Users/ekateshcherbakova/Documents/GermanyNoADM2.kml", "w+")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/KML old/Karagandinskaya oblast old.kml", "w+")  # ("/Users/ekateshcherbakova/Documents/KZ MATCH/KML/Karagandinskaya oblast Ok.kml", "w+")
+my_file = open(outputFilePath, "w+")
 my_file.write(etree.tostring(doc, pretty_print=True))
 my_file.close()
 
