@@ -1,5 +1,5 @@
 # xslx2kml
-Allows you to generate an kml file from xslx with WKT format for import to google maps your geographical objects
+Allows you to generate a kml file from xslx with WKT format for import to google maps your geographical objects
 
 ## Getting Started
 set the parameter values in the settings.ini:
@@ -12,6 +12,6 @@ set the parameter values in the settings.ini:
 - columnWithDescription - number of column with the description of geographical object
 
 # Acknowledgments
-About KML format - https://developers.google.com/kml
-About WKT format - https://ru.wikipedia.org/wiki/WKT 
-Pykml documentation -  https://pythonhosted.org/pykml/
+- About KML format - https://developers.google.com/kml
+- About WKT format - https://ru.wikipedia.org/wiki/WKT 
+- Pykml documentation -  https://pythonhosted.org/pykml/
