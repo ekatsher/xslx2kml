@@ -2,7 +2,7 @@
 Allows you to generate a kml file from xslx with WKT format for import to google maps your geographical objects
 
 ## Getting Started
-set the parameter values in the settings.ini:
+set the parameter values in the settings.ini and run:
 - inputFilePath - full path to the input xlsx file
 - outputFilePath - full path to the output kml file
 - firstRowWithData - number or row with the start data (if you have a column's headers in the input file, then set the value = 2, otherwise - 1)
