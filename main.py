@@ -80,7 +80,7 @@ startRow = int(config["settings"]["firstRowWithData"])
 columnWithGeometry = int(config["settings"]["columnWithGeometry"])
 columnWithPointCoords = int(config["settings"]["columnWithPointCoords"])
 columnWithName = int(config["settings"]["columnWithName"])
-columnWithDescription = int(config["settings"]["columnWithName"])
+columnWithDescription = int(config["settings"]["columnWithDescription"])
 
 # читаем файл
 book = load_workbook(inputFilePath)
@@ -112,7 +112,8 @@ for row in range(startRow, sheet.max_row + 1):
         multyGeometryKML = KML.MultiGeometry()
     else:
         print 'No point or geometry in the input file in line: ' + str(row)
-        sys.exit(1)
+        #sys.exit(1)
+        break
 
     # преобразуем к нужному формату, если не пусто
     if pointText != 'None':
